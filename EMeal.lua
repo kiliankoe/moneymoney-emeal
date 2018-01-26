@@ -43,7 +43,7 @@ end
 
 function RefreshAccount(account, since)
     local dateStart = MM.localizeDate('dd.MM.yyyy', since)
-    local dateEnd = MM.localizeDate('dd.MM.yyyy', os.time())
+    local dateEnd = MM.localizeDate('dd.MM.yyyy', os.time() + 24*3600)
     local urlStub = '?format=JSON&authToken=' .. authToken .. '&karteNr=' .. swdUsername .. '&datumVon=' .. dateStart .. '&datumBis=' .. dateEnd
 
     local posUrl = baseURL .. 'TRANSPOS' .. urlStub
