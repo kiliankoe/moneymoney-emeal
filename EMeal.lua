@@ -80,8 +80,7 @@ function RefreshAccount(account, since)
     }
 end
 
-function EndSession()
-end
+function EndSession() end
 
 -- ---
 
