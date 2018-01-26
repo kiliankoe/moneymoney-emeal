@@ -1,6 +1,6 @@
 -- Reference: https://moneymoney-app.com/api/webbanking/
 
-WebBanking{version     = 0.10,
+WebBanking{version     = 1.00,
            url         = 'https://kartenservice.studentenwerk-dresden.de',
            services    = {'Studentenwerk Dresden Emeal'},
            description = string.format(
