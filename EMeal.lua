@@ -53,10 +53,10 @@ function RefreshAccount(account, since)
     local transJson = get(transUrl)
 
     local transactions = {}
-    for idx, rawTrans in pairs(transJson) do
+    for _, rawTrans in pairs(transJson) do
 
         local positionsStr = ''
-        for posIdx, rawPos in pairs(posJson) do
+        for _, rawPos in pairs(posJson) do
             if rawPos['transFullId'] == rawTrans['transFullId'] then
                 positionsStr = positionsStr .. ', ' .. rawPos['name']
             end
