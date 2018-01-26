@@ -55,19 +55,20 @@ function RefreshAccount(account, since)
     local transactions = {}
     for _, rawTrans in pairs(transJson) do
 
-        local positionsStr = ''
+        local matchingPositions = {}
         for _, rawPos in pairs(posJson) do
             if rawPos['transFullId'] == rawTrans['transFullId'] then
-                positionsStr = positionsStr .. ', ' .. rawPos['name']
+                matchingPositions[#matchingPositions+1] = rawPos['name']
             end
         end
+        matchingPositions = joined(matchingPositions, ', ')
 
         local timestamp = stringToTimestamp(rawTrans['datum'])
 
         local trans = {
             name = rawTrans['ortName'] .. ' ' .. rawTrans['kaName'],
             bookingDate = timestamp,
-            purpose = rawTrans['typName'] .. positionsStr,
+            purpose = rawTrans['typName'] .. ' ' .. matchingPositions,
             amount = rawTrans['zahlBetrag'],
             bookingText = rawTrans['transFullId']
         }
@@ -109,3 +110,16 @@ function stringToTimestamp(str)
     local timestamp = os.time({day=day,month=month,year=year,hour=hour,min=min})
     return timestamp
 end
+
+function joined(table, separator)
+    local str = ''
+    for idx, value in pairs(table) do
+        if idx == 1 then
+            str = value
+        else
+            str = str .. separator .. value
+        end
+    end
+    return str
+end
+
