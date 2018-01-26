@@ -12,9 +12,9 @@ function SupportsBank(protocol, bankCode)
     return protocol == ProtocolWebBanking and bankCode == 'Studentenwerk Dresden Emeal'
 end
 
-local swdUsername
-local swdPassword
-local authToken
+swdUsername = ''
+swdPassword = ''
+authToken = ''
 
 local baseURL = 'https://kartenservicedaten.studentenwerk-dresden.de:8080/TL1/TLM/KASVC/'
 
@@ -63,12 +63,10 @@ function RefreshAccount(account, since)
         end
         matchingPositions = joined(matchingPositions, ', ')
 
-        local timestamp = stringToTimestamp(rawTrans['datum'])
-
         local trans = {
             name = rawTrans['ortName'] .. ' ' .. rawTrans['kaName'],
-            bookingDate = timestamp,
-            purpose = rawTrans['typName'] .. ' ' .. matchingPositions,
+            bookingDate = stringToTimestamp(rawTrans['datum']),
+            purpose = rawTrans['typName'] .. ': ' .. matchingPositions,
             amount = rawTrans['zahlBetrag'],
             bookingText = rawTrans['transFullId']
         }
@@ -85,7 +83,7 @@ function EndSession() end
 
 -- ---
 
-local headers = {}
+headers = {}
 headers['Authorization'] = 'Basic S0FTVkM6ekt2NXlFMUxaVW12VzI5SQ==' -- this really is a static value... ¯\_(ツ)_/¯
 headers['User-Agent'] = 'MoneyMoney Emeal Extension'
 
